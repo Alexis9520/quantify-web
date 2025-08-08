@@ -1,26 +1,19 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent } from "@/components/ui/card"
 import { AnimatedSection } from "@/components/animated-section"
 import BlurText from "@/components/BlurText"
-import { ServiceCard } from "@/components/service-card"
-import DarkVeil from "@/components/DarkVeil"
-import ShinyText from '@/components/ShinyText';
+import ShinyText from "@/components/ShinyText"
 
-import MagicBento from "@/components/MagicBento";
+import CursorBlob from "@/components/CursorBlob"
+import FuturisticBackground from "@/components/FuturisticBackground"
+import ScrollProgressBar from "@/components/ScrollProgressBar"
+import AnimatedTitle from "@/components/AnimatedTitle"
+import HolographicCard from "@/components/HolographicCard"
 
 import {
-  Server,
-  Globe,
-  Cloud,
-  ShoppingBag,
-  Smartphone,
-  Database,
-  Code,
   MessageCircle,
   ArrowRight,
   Mail,
@@ -35,128 +28,166 @@ import {
   Zap,
   Shield,
   Award,
+  Server,
+  Cloud,
+  Smartphone,
+  Database,
+  ShoppingBag,
+  Globe,
+  Code,
+  HardDrive,
 } from "lucide-react"
+import Link from "next/link"
 
-const heroLines1 = [
-  "Transformamos",
-  "ideas",
-  "en",
-  "soluciones",
-  "digitales",
-  "innovadoras.",
-];
-
-const heroLines2 = [
-  "Tecnología",
-  "de",
-  "vanguardia",
-  "para",
-  "impulsar",
-  "tu",
-  "negocio."
-];
+// Servicios adaptados a lo que ofreces
+export const services = [
+  {
+    slug: "hostear-portafolios", // /servicios/hostear-portafolios
+    icon: Globe,
+    title: "Hosting para Portafolios",
+    desc: "Hosting ultra‑ligero para portafolios y landing pages con despliegue instantáneo y dominios personalizados.",
+    tags: ["SSL gratis", "Deploy 1‑click", "Dominios"],
+  },
+  {
+    slug: "hosting-web", // /servicios/hosting-web
+    icon: Server,
+    title: "Hosting Web",
+    desc: "Servidores optimizados con Edge CDN, HTTP/3 y copias de seguridad automáticas para máxima disponibilidad.",
+    tags: ["99.99% uptime", "Edge CDN", "Backups"],
+  },
+  {
+    slug: "paginas-web", // /servicios/paginas-web
+    icon: Code,
+    title: "Desarrollo de Páginas Web",
+    desc: "Sitios modernos, accesibles y rápidos con SEO técnico y animaciones de alto rendimiento.",
+    tags: ["Next.js", "SEO+", "Accesible"],
+  },
+  {
+    slug: "sistemas-web-escritorio", // /servicios/sistemas-web-escritorio
+    icon: Database,
+    title: "Sistemas Web y de Escritorio",
+    desc: "Sistemas de gestión, dashboards y apps de escritorio con sincronización y control de roles.",
+    tags: ["Multi‑plataforma", "RBAC", "Escalable"],
+  },
+  {
+    slug: "saas", // /servicios/saas
+    icon: Cloud,
+    title: "SaaS",
+    desc: "Producto SaaS multi‑tenant con suscripciones, facturación e integración CI/CD sin downtime.",
+    tags: ["Multi‑tenant", "Billing", "CI/CD"],
+  },
+  {
+    slug: "catalogos-sistemas", // /servicios/catalogos-sistemas
+    icon: ShoppingBag,
+    title: "Catálogos y Sistemas para Negocios",
+    desc: "Catálogos online, inventario, POS y órdenes integradas con reportes en tiempo real.",
+    tags: ["Inventario", "POS", "Reportes"],
+  },
+  {
+    slug: "aplicaciones-moviles", // /servicios/aplicaciones-moviles
+    icon: Smartphone,
+    title: "Desarrollo de Apps Móviles",
+    desc: "Aplicaciones nativas/híbridas para iOS y Android con notificaciones y modo offline‑first.",
+    tags: ["iOS/Android", "Push", "Offline"],
+  },
+  {
+    slug: "almacenamiento-nube", // /servicios/almacenamiento-nube
+    icon: HardDrive,
+    title: "Almacenamiento en la Nube",
+    desc: "Almacenamiento seguro con enlaces firmados, CDN y versionado compatible con S3.",
+    tags: ["S3 compatible", "Cifrado", "Versionado"],
+  },
+]
 
 export default function QuantifyWebsite() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    setIsVisible(true)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
-
-  // Puedes eliminar el array services si ya no usarás ServiceCard, solo MagicBento
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-[#220636] to-[#003246] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-black via-[#0a0716] to-[#00121a] relative overflow-hidden">
+      {/* Capas globales futuristas */}
+      <FuturisticBackground />
+      <CursorBlob />
+      <ScrollProgressBar />
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#0e0b1f]/90 backdrop-blur-md border-b border-purple-800/30 transition-all duration-300">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-2xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-pointer drop-shadow-[0_2px_8px_rgba(109,40,217,0.25)]">
+      <nav className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[min(96%,1120px)] rounded-2xl border border-white/10 bg-[#0e0b1f]/70 backdrop-blur-xl transition-all duration-300 neon-border">
+        <div className="px-5 py-3 flex justify-between items-center">
+          <div className="text-2xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-pointer">
             Quantify
           </div>
-          <div className="hidden md:flex space-x-8">
-            {["Inicio", "Servicios", "Contacto"].map((item, index) => (
+          <div className="hidden md:flex items-center gap-2">
+            {["Inicio", "Servicios", "Contacto"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-white hover:text-purple-400 transition-all duration-300 font-medium relative group"
+                className="relative px-4 py-2 rounded-full text-sm font-medium text-gray-200 hover:text-white transition-colors group"
               >
+                <span className="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
               </a>
             ))}
           </div>
-          <Button className="bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-800/25 font-semibold">
-            Comenzar
-            <Sparkles className="ml-2 h-4 w-4" />
+          <Button className="relative overflow-hidden bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 transition-all duration-300 hover:scale-[1.04] font-semibold shine-on-hover">
+            <span className="relative z-10 flex items-center">
+              Comenzar
+              <Sparkles className="ml-2 h-4 w-4" />
+            </span>
           </Button>
         </div>
       </nav>
 
-      {/* Hero Section - Fondo OGL */}
+      {/* Hero Section */}
       <section
         id="inicio"
-        className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
+        className="min-h-[92vh] flex flex-col items-center justify-center relative overflow-hidden pt-24"
       >
-        {/* Fondo OGL */}
-        <div className="absolute inset-0 w-full h-full">
-          <DarkVeil
-            hueShift={-25}
-            noiseIntensity={0.06}
-            scanlineIntensity={0}
-            scanlineFrequency={25}
-            warpAmount={0.14}
-            speed={0.3}
-          />
-        </div>
         {/* Contenido principal */}
         <div className="container mx-auto px-4 flex flex-col items-center justify-center h-full relative z-10">
-          <BlurText
+          <AnimatedTitle
             text="QUANTIFY"
-            delay={100}
-            animateBy="letters"
-            direction="top"
-            className="text-6xl md:text-8xl font-black mb-10 text-white leading-tight drop-shadow-[0_4px_24px_rgba(109,40,217,0.15)] text-center"
+            className="text-6xl md:text-8xl font-black mb-8 text-white leading-[0.95] text-center"
           />
           <div className="w-full max-w-2xl flex flex-col items-center justify-center mb-8">
             <ShinyText
               text="Transformamos ideas en soluciones digitales innovadoras."
               speed={3}
-              className="text-xl md:text-3xl font-light text-center mb-6"
+              className="text-xl md:text-3xl font-light text-center mb-6 text-white/90"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-4">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 text-white px-10 py-4 rounded-full transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-purple-900/40 font-bold text-lg group"
+              className="relative overflow-hidden bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 text-white px-10 py-4 rounded-full transition-all duration-500 hover:scale-110 font-bold text-lg group shine-on-hover"
             >
-              Explorar Servicios
-              <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform duration-300" />
+              <span className="relative z-10 flex items-center">
+                Explorar Servicios
+                <ArrowRight className="ml-3 h-6 w-6 transition-transform duration-300 group-hover:translate-x-2" />
+              </span>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-purple-800 text-purple-400 hover:bg-purple-900/20 px-10 py-4 rounded-full transition-all duration-500 hover:scale-110 bg-transparent font-bold text-lg hover:border-cyan-700 hover:text-cyan-400"
+              className="relative overflow-hidden border-2 border-purple-800/70 text-purple-300 hover:text-cyan-200 hover:bg-purple-900/10 px-10 py-4 rounded-full transition-all duration-500 hover:scale-110 bg-transparent font-bold text-lg hover:border-cyan-700 shine-on-hover"
             >
-              Asesoramiento Gratuito
-              <MessageCircle className="ml-3 h-6 w-6" />
+              <span className="relative z-10 flex items-center">
+                Asesoramiento Gratuito
+                <MessageCircle className="ml-3 h-6 w-6" />
+              </span>
             </Button>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
           <ChevronDown className="h-10 w-10 text-purple-400" />
         </div>
       </section>
 
+      {/* Divider con grid láser */}
+      <div className="relative h-20">
+        <div className="absolute inset-0 futuristic-grid opacity-30" />
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
+      </div>
+
       {/* Services Section */}
-      <section id="servicios" className="py-24 bg-[#0e0b1f]/90 relative">
+      <section id="servicios" className="py-24 relative">
         <div className="container mx-auto px-4">
           <AnimatedSection animation="fadeInUp">
             <div className="text-center mb-20">
@@ -167,7 +198,7 @@ export default function QuantifyWebsite() {
                 direction="top"
                 className="text-5xl md:text-6xl font-black mb-6 text-white"
               />
-              <div className="h-2 w-32 bg-gradient-to-r from-purple-700 to-cyan-600 mx-auto mb-8 rounded-full"></div>
+              <div className="h-2 w-32 bg-gradient-to-r from-purple-700 to-cyan-600 mx-auto mb-8 rounded-full" />
               <ShinyText
                 text="Soluciones tecnológicas integrales para llevar tu negocio al siguiente nivel"
                 speed={3.5}
@@ -175,26 +206,65 @@ export default function QuantifyWebsite() {
               />
             </div>
           </AnimatedSection>
-          {/* MagicBento reemplaza el grid de ServiceCard */}
-          <div className="flex justify-center">
-            <MagicBento
-              textAutoHide={true}
-              enableStars={true}
-              enableSpotlight={true}
-              enableBorderGlow={true}
-              enableTilt={true}
-              enableMagnetism={true}
-              clickEffect={true}
-              spotlightRadius={300}
-              particleCount={12}
-              glowColor="132, 0, 255"
-            />
+          {/* Cartas futuristas (tilt + holograma) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {/* Move useRouter outside the map callback */}
+            {(() => {
+              const { useRouter } = require("next/navigation");
+              const router = useRouter();
+              return services.map((s, idx) => (
+                <AnimatedSection key={s.slug} animation="fadeInUp" delay={idx * 120}>
+                  <HolographicCard
+                    className="p-6 hover:scale-[1.02] cursor-pointer group"
+                    role="link"
+                    tabIndex={0}
+                    onClick={() => router.push(`/servicios/${s.slug}`)}
+                    onKeyDown={(e) => { if (e.key === "Enter") router.push(`/servicios/${s.slug}`) }}
+                  >
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 p-3 rounded-2xl bg-gradient-to-br from-purple-700/40 to-cyan-600/30 ring-1 ring-white/10">
+                      <s.icon className="h-7 w-7 text-purple-300" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-bold text-white">{s.title}</h3>
+                      <p className="mt-2 text-gray-300">{s.desc}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {s.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="px-2.5 py-1 rounded-full text-xs text-cyan-200/90 bg-white/5 ring-1 ring-white/10"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex items-center justify-between">
+                    <Link
+                      href={`/servicios/${s.slug}`}
+                      className="text-sm text-purple-300 hover:text-cyan-200 transition-colors inline-flex items-center gap-2"
+                      prefetch
+                      aria-label={`Ver más sobre ${s.title}`}
+                      onClick={(e) => e.stopPropagation()} // evita doble navegación
+                    >
+                      Saber más
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <div className="h-px flex-1 mx-4 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                    <span className="text-xs text-white/40">#{String(idx + 1).padStart(2, "0")}</span>
+                  </div>
+                </HolographicCard>
+              </AnimatedSection>
+              ));
+            })()}
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-24 bg-gradient-to-r from-purple-950/20 to-cyan-950/20 relative">
+      <section className="py-24 relative">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection animation="fadeInLeft">
@@ -239,27 +309,25 @@ export default function QuantifyWebsite() {
                 </div>
               </div>
             </AnimatedSection>
+
             <AnimatedSection animation="fadeInRight">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-800/30 to-cyan-900/20 rounded-2xl transform rotate-3 animate-pulse"></div>
-                <Card className="relative bg-black/95 border border-purple-900/40 hover:border-purple-700/70 transition-all duration-500 hover:scale-105 group shadow-lg shadow-cyan-900/15">
-                  <CardContent className="p-10">
-                    <div className="flex items-center mb-6">
-                      <MessageCircle className="h-8 w-8 text-purple-400 mr-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                      <h3 className="text-3xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300">
-                        Asesoramiento Gratuito
-                      </h3>
-                    </div>
-                    <p className="text-gray-300 mb-8 text-lg leading-relaxed group-hover:text-white transition-colors duration-300">
-                      Obtén una consulta personalizada sin costo. Analizamos tu proyecto y te recomendamos la mejor
-                      solución.
-                    </p>
-                    <Button className="w-full bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-900/40 font-bold text-lg py-3">
+                <HolographicCard className="p-10 hover:scale-[1.02] transition-transform duration-500">
+                  <div className="flex items-center mb-6">
+                    <MessageCircle className="h-8 w-8 text-purple-300 mr-4" />
+                    <h3 className="text-3xl font-bold text-white">Asesoramiento Gratuito</h3>
+                  </div>
+                  <p className="text-gray-300 mb-8 text-lg leading-relaxed">
+                    Obtén una consulta personalizada sin costo. Analizamos tu proyecto y te recomendamos la mejor
+                    solución.
+                  </p>
+                  <Button className="w-full relative overflow-hidden bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 transition-all duration-500 hover:scale-105 font-bold text-lg py-3 shine-on-hover">
+                    <span className="relative z-10 flex items-center justify-center">
                       Solicitar Consulta
                       <ArrowRight className="ml-3 h-5 w-5" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                    </span>
+                  </Button>
+                </HolographicCard>
               </div>
             </AnimatedSection>
           </div>
@@ -267,7 +335,7 @@ export default function QuantifyWebsite() {
       </section>
 
       {/* Contact Section */}
-      <section id="contacto" className="py-24 bg-[#0e0b1f]/90">
+      <section id="contacto" className="py-24">
         <div className="container mx-auto px-4">
           <AnimatedSection animation="fadeInUp">
             <div className="text-center mb-20">
@@ -288,6 +356,7 @@ export default function QuantifyWebsite() {
               />
             </div>
           </AnimatedSection>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <AnimatedSection animation="fadeInLeft">
               <div>
@@ -327,9 +396,9 @@ export default function QuantifyWebsite() {
                         <a
                           key={index}
                           href="#"
-                          className="p-4 bg-gradient-to-r from-purple-800/30 to-cyan-900/20 rounded-full hover:from-purple-800/50 hover:to-cyan-900/40 transition-all duration-500 hover:scale-110 hover:rotate-12 group"
+                          className="p-4 bg-gradient-to-r from-purple-800/30 to-cyan-900/20 rounded-full hover:from-purple-800/50 hover:to-cyan-900/40 transition-all duration-500 hover:scale-110 hover:-rotate-6 group"
                         >
-                          <Social className="h-6 w-6 text-purple-400 group-hover:text-cyan-400 transition-all duration-500" />
+                          <Social className="h-6 w-6 text-purple-300 group-hover:text-cyan-300 transition-all duration-500" />
                         </a>
                       ))}
                     </div>
@@ -337,63 +406,73 @@ export default function QuantifyWebsite() {
                 </AnimatedSection>
               </div>
             </AnimatedSection>
+
             <AnimatedSection animation="fadeInRight">
-              <Card className="bg-gradient-to-br from-[#1a1127]/95 to-black/95 border-purple-900/40 hover:border-purple-700/70 transition-all duration-500 hover:scale-105 group shadow-lg shadow-cyan-900/15">
-                <CardContent className="p-10">
-                  <h3 className="text-3xl font-bold text-white mb-8 group-hover:text-purple-400 transition-colors duration-300">
-                    Envíanos un Mensaje
-                  </h3>
-                  <form className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-3">Nombre</label>
-                        <Input
-                          className="bg-black/50 border-purple-800/40 text-white placeholder-gray-500 focus:border-purple-700 transition-all duration-300 hover:border-purple-800/60 py-3"
-                          placeholder="Tu nombre"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-bold text-gray-300 mb-3">Email</label>
-                        <Input
-                          type="email"
-                          className="bg-black/50 border-purple-800/40 text-white placeholder-gray-500 focus:border-purple-700 transition-all duration-300 hover:border-purple-800/60 py-3"
-                          placeholder="tu@email.com"
-                        />
-                      </div>
-                    </div>
+              <HolographicCard className="p-10 hover:scale-[1.01] transition-transform duration-500">
+                <h3 className="text-3xl font-bold text-white mb-8">Envíanos un Mensaje</h3>
+                <form className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-300 mb-3">Servicio de Interés</label>
-                      <select className="w-full p-4 bg-black/50 border border-purple-800/40 rounded-md text-white focus:border-purple-700 focus:outline-none transition-all duration-300 hover:border-purple-800/60">
-                        <option value="">Selecciona un servicio</option>
-                        <option value="hosting">Hosting Web</option>
-                        <option value="saas">SaaS Solutions</option>
-                        <option value="mobile">Aplicaciones Móviles</option>
-                        <option value="custom">Desarrollo Personalizado</option>
-                        <option value="consulting">Asesoramiento</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-gray-300 mb-3">Mensaje</label>
-                      <Textarea
-                        className="bg-black/50 border-purple-800/40 text-white placeholder-gray-500 focus:border-purple-700 min-h-[150px] transition-all duration-300 hover:border-purple-800/60"
-                        placeholder="Cuéntanos sobre tu proyecto..."
+                      <label className="block text-sm font-bold text-gray-300 mb-3">Nombre</label>
+                      <Input
+                        className="bg-black/50 border-purple-800/40 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-600/40 transition-all duration-300 hover:border-purple-800/60 py-3"
+                        placeholder="Tu nombre"
                       />
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 text-white py-4 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-900/30 font-bold text-lg group">
+                    <div>
+                      <label className="block text-sm font-bold text-gray-300 mb-3">Email</label>
+                      <Input
+                        type="email"
+                        className="bg-black/50 border-cyan-800/40 text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-600/40 transition-all duration-300 hover:border-cyan-800/60 py-3"
+                        placeholder="tu@email.com"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-300 mb-3">Servicio de Interés</label>
+                    <select className="w-full p-4 bg-black/50 border border-white/10 rounded-md text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-600/40 transition-all duration-300 hover:border-purple-800/60">
+                      <option value="">Selecciona un servicio</option>
+                      <option value="hosting-portafolios">Hosting para Portafolios</option>
+                      <option value="hosting-web">Hosting Web</option>
+                      <option value="paginas-web">Desarrollo de Páginas Web</option>
+                      <option value="sistemas-web-escritorio">Sistemas Web y de Escritorio</option>
+                      <option value="saas">SaaS</option>
+                      <option value="catalogos-negocios">Catálogos y Sistemas para Negocios</option>
+                      <option value="apps-moviles">Desarrollo de Aplicaciones Móviles</option>
+                      <option value="almacenamiento-nube">Almacenamiento en la Nube</option>
+                      <option value="asesoramiento">Asesoramiento</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-300 mb-3">Mensaje</label>
+                    <Textarea
+                      className="bg-black/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-600/40 min-h-[150px] transition-all duration-300 hover:border-purple-800/60"
+                      placeholder="Cuéntanos sobre tu proyecto..."
+                    />
+                  </div>
+                  <Button className="w-full relative overflow-hidden bg-gradient-to-r from-purple-800 to-cyan-800 hover:from-purple-900 hover:to-cyan-950 text-white py-4 transition-all duration-500 hover:scale-105 font-bold text-lg group shine-on-hover">
+                    <span className="relative z-10 flex items-center justify-center">
                       Enviar Mensaje
-                      <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-2 transition-transform duration-300" />
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+                      <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-2" />
+                    </span>
+                  </Button>
+                </form>
+              </HolographicCard>
             </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black border-t border-purple-900/30 py-16">
-        <div className="container mx-auto px-4">
+      <footer className="bg-black/90 border-t border-purple-900/30 py-16 relative overflow-hidden">
+        <div
+          className="absolute inset-x-0 -top-32 h-64 blur-3xl opacity-30"
+          style={{
+            background:
+              "radial-gradient(60% 60% at 50% 0%, rgba(124,58,237,0.25) 0%, rgba(34,211,238,0.18) 50%, rgba(0,0,0,0) 70%)",
+          }}
+        />
+        <div className="container mx-auto px-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <AnimatedSection animation="fadeInUp">
               <div>
@@ -410,7 +489,7 @@ export default function QuantifyWebsite() {
               </div>
             </AnimatedSection>
             {[
-              { title: "Servicios", links: ["Hosting Web", "SaaS Solutions", "Apps Móviles", "Desarrollo Custom"] },
+              { title: "Servicios", links: ["Hosting Portafolios", "Hosting Web", "Páginas Web", "Sistemas Web/Escritorio", "SaaS", "Catálogos para Negocios", "Apps Móviles", "Almacenamiento Nube"] },
               { title: "Empresa", links: ["Sobre Nosotros", "Portafolio", "Blog", "Carreras"] },
               { title: "Soporte", links: ["Centro de Ayuda", "Documentación", "Estado del Sistema", "Contacto"] },
             ].map((section, index) => (
@@ -435,7 +514,9 @@ export default function QuantifyWebsite() {
           </div>
           <AnimatedSection animation="fadeInUp" delay={800}>
             <div className="border-t border-purple-900/30 mt-12 pt-8 text-center">
-              <p className="text-gray-400 text-lg">&copy; 2024 Quantify. Todos los derechos reservados.</p>
+              <p className="text-gray-400 text-lg">
+                &copy; {new Date().getFullYear()} Quantify. Todos los derechos reservados.
+              </p>
             </div>
           </AnimatedSection>
         </div>
